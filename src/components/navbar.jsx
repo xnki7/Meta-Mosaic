@@ -6,7 +6,11 @@ function Navbar ({connectWallet, account}) {
     return(
         <nav>
             <img src={logo} alt="logo" className="logo" />
-            {account?(
+            <div className="right">
+                <button className='navButton'>my nft</button>
+                <button className='navButton'>create nft</button>
+                <button className='navButton'>sell your nft</button>
+                {account?(
                 <button class="btn" type="button">
                     <strong>{account.slice(0, 6) + '...' + account.slice(38, 42)}</strong>
                     <div id="container-stars">
@@ -29,6 +33,7 @@ function Navbar ({connectWallet, account}) {
                     </div>
                 </button>
             )}
+            </div>
         </nav>
     )
 }
