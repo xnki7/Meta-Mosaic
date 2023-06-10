@@ -7,9 +7,27 @@ function Navbar ({connectWallet, account}) {
         <nav>
             <img src={logo} alt="logo" className="logo" />
             {account?(
-                <button className='connect-wallet'>{account.slice(0, 6) + ' ... ' + account.slice(38, 42)}</button>
+                <button class="btn" type="button">
+                    <strong>{account.slice(0, 6) + '...' + account.slice(38, 42)}</strong>
+                    <div id="container-stars">
+                        <div id="stars"></div>
+                    </div>
+                    <div id="glow">
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                    </div>
+                </button>
             ):(
-                <button className='connect-wallet' onClick={connectWallet}>Connect Wallet !</button>
+                <button class="btn" type="button" onClick={connectWallet}>
+                    <strong>Connect Wallet</strong>
+                    <div id="container-stars">
+                        <div id="stars"></div>
+                    </div>
+                    <div id="glow">
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                    </div>
+                </button>
             )}
         </nav>
     )
