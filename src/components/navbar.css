@@ -1,0 +1,20 @@
+nav{
+    margin: 0;
+    position: fixed;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    background: #202021;
+    box-shadow: 0px 4px 4px rgba(255, 255, 255, 0.15);
+    z-index: 10;
+}
+
+.logo {
+    width: 220px;
+    height: 85px;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    transition: 0.5s cubic-bezier(0.6, 0.03, 0.28, 0.98);
+    transform: scale(0.98);
+}

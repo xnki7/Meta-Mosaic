@@ -2,6 +2,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import UploadNFTForm from "./pages/UploadNFTForm";
 import Marketplace from "./pages/Marketplace";
+import Navbar from "./components/navbar";
 import { contractAddress, contractAbi } from "./constant";
 import { ethers } from "ethers";
 
@@ -70,9 +71,13 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={connectWallet}>Connect wallet 🦊</button>
+      <Navbar 
+      connectWallet = {connectWallet}
+      account = {account}
+      />
+      {/* <button onClick={connectWallet}>Connect wallet 🦊</button>
       <UploadNFTForm contract={contract} />
-      <Marketplace contract={contract}/>
+      <Marketplace contract={contract}/> */}
     </div>
   );
 }
