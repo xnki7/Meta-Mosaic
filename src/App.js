@@ -1,10 +1,76 @@
 import "./App.css";
-import CreateNlistToken from "./pages/CreateNlistToken";
+import { useState, useEffect } from "react";
+import UploadNFTForm from "./pages/UploadNFTForm";
+import { contractAddress, contractAbi } from "./constant";
+import { ethers } from "ethers";
 
 function App() {
+  const [provider, setProvider] = useState(null);
+  const [account, setAccount] = useState(null);
+  const [signer, setSigner] = useState(null);
+  const [contract, setContract] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
+
+  useEffect(() => {
+    loadBcData();
+  }, []);
+
+  const networks = {
+    polygon: {
+      chainId: `0x${Number(80001).toString(16)}`,
+      chainName: "Polygon Testnet",
+      nativeCurrency: {
+        name: "MATIC",
+        symbol: "MATIC",
+        decimals: 18,
+      },
+      rpcUrls: ["https://rpc-mumbai.maticvigil.com/"],
+      blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+    },
+  };
+
+  async function loadBcData() {
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(
+        window.ethereum,
+        "any"
+      );
+      setProvider(provider);
+      const signer = provider.getSigner();
+      setSigner(signer);
+      const contractInstance = new ethers.Contract(
+        contractAddress,
+        contractAbi,
+        signer
+      );
+      setContract(contractInstance);
+    }
+  }
+
+  async function connectWallet() {
+    if (window.ethereum) {
+      try {
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        if (provider.network.chainId !== networks.polygon.chainId) {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [networks.polygon],
+          });
+        }
+        const address = await signer.getAddress();
+        console.log("Metamask Connected to " + address);
+        setAccount(address);
+        setIsConnected(true);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+
   return (
     <div className="App">
-      <CreateNlistToken />
+      <button onClick={connectWallet}>Connect wallet 🦊</button>
+      <UploadNFTForm contract={contract} />
     </div>
   );
 }
