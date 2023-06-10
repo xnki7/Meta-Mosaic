@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import UploadNFTForm from "./pages/UploadNFTForm";
+import Marketplace from "./pages/Marketplace";
 import { contractAddress, contractAbi } from "./constant";
 import { ethers } from "ethers";
 
@@ -71,6 +72,7 @@ function App() {
     <div className="App">
       <button onClick={connectWallet}>Connect wallet 🦊</button>
       <UploadNFTForm contract={contract} />
+      <Marketplace contract={contract}/>
     </div>
   );
 }
