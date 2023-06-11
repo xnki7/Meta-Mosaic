@@ -16,7 +16,7 @@ contract NFTMarketplace is ERC721URIStorage {
     //owner is the contract address that created the smart contract
     address payable owner;
     //The fee charged by the marketplace to be allowed to list an NFT
-    uint256 listPrice = 0.1 ether;
+    uint256 listPrice = 0 ether;
 
     //The structure to store info about a listed token
     struct ListedToken {
@@ -184,30 +184,29 @@ contract NFTMarketplace is ERC721URIStorage {
     }
 
     function executeSale(uint256 tokenId) public payable {
-        uint price = (idToListedToken[tokenId].price)*1000000000000000000;
-        address seller = idToListedToken[tokenId].seller;
-        require(msg.value == price, "Please submit the asking price in order to complete the purchase");
+        require(idToListedToken[tokenId].currentlyListed, "Token is not currently listed");
+        require(msg.value == idToListedToken[tokenId].price, "Please send the correct amount");
 
-        //update the details of the token
-        // idToListedToken[tokenId].currentlyListed = true;
-        idToListedToken[tokenId].currentlyListed = false;
-        idToListedToken[tokenId].seller = payable(msg.sender);
+        ListedToken memory listedToken = idToListedToken[tokenId];
+        address payable seller = listedToken.seller;
+
         _itemsSold.increment();
         _itemsListed.decrement();
+        idToListedToken[tokenId].currentlyListed = false;
+        idToHistoryArray[tokenId].push(tokenHistory(tokenId, msg.sender, seller, "Token Sold", block.timestamp));
 
-        idToTokenHistory[tokenId] = tokenHistory(tokenId, msg.sender, seller, "Token Sold", block.timestamp);
-        idToHistoryArray[tokenId].push(idToTokenHistory[tokenId]);
-
-        //Actually transfer the token to the new owner
+        seller.transfer(msg.value);
         _transfer(address(this), msg.sender, tokenId);
-        //approve the marketplace to sell NFTs on your behalf
-        approve(address(this), tokenId);
 
-        //Transfer the listing fee to the marketplace creator
-        payable(owner).transfer(listPrice);
-        //Transfer the proceeds from the sale to the seller of the NFT
-        payable(seller).transfer(msg.value);
+        idToListedToken[tokenId] = ListedToken(
+            tokenId,
+            payable(msg.sender),
+            payable(address(this)),
+            0,
+            false
+        );
     }
+
 
     function reListToken(uint256 tokenId, uint256 price) public payable returns (uint) {
         //Increment the tokenId counter, which is keeping track of the number of minted NFTs

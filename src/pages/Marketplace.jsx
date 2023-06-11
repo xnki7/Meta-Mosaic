@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import NFTcard from "../components/NFTcard";
 import "./Marketplace.css";
+import NFTmodal from "./NFTmodal";
 import axios from "axios";
 
 function Marketplace({ contract }) {
   const [nfts, setNfts] = useState([]);
+  const [selectedNFT, setSelectedNFT] = useState(null);
 
   useEffect(() => {
     if (contract) {
@@ -69,6 +71,8 @@ function Marketplace({ contract }) {
                       img={`https://ipfs.io/ipfs/${nft.metadata.imageCID}`}
                       price={nft.price.toString()}
                       seller={nft.seller.toString()}
+                      setSelectedNFT={setSelectedNFT}
+                      nft ={nft}
                     />
                   ) : (
                     <p>Loading metadata...</p>
@@ -79,6 +83,16 @@ function Marketplace({ contract }) {
             <p>Loading...</p>
           )}
         </div>
+        {selectedNFT && (
+          <>
+            <NFTmodal
+              nft={selectedNFT}
+              contract={contract}
+              setSelectedNFT={setSelectedNFT}
+            />
+            <div className="overlay" onClick={() => setSelectedNFT(null)}></div>
+          </>
+        )}
       </div>
     </>
   );

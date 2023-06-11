@@ -1,0 +1,28 @@
+.NFTmodal {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-height: calc(100vh - 10vh);
+  overflow-y: auto;
+  background-color: #171717;
+  z-index: 9999;
+  /* border-radius: 0px 0px 20px 20px; */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  padding: 0px;
+  border: solid 3px #999999;
+  color: white;
+  padding: 4vh;
+}
+
+.NFTmodal .upperContent {
+    display: flex;
+    align-items: flex-start;
+    /* justify-content: space-between; */
+}
+
+.NFTmodal .upperContent img{
+    height: 70vh;
+    width: 70vh;
+}

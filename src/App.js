@@ -14,7 +14,7 @@ function App() {
   const [signer, setSigner] = useState(null);
   const [contract, setContract] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
-
+  
   useEffect(() => {
     loadBcData();
   }, []);
@@ -74,7 +74,7 @@ function App() {
   return (
     <div className="App">
       <Navbar connectWallet={connectWallet} account={account} />
-
+      
       <Routes>
         <Route path="/" element={<Marketplace contract={contract} />} />
         <Route
