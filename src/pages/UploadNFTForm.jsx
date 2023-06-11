@@ -91,7 +91,7 @@ const UploadNFTForm = ({ contract }) => {
         </label>
         <br />
         <br />
-        
+
         <label>
           <p className="head"> NFT Description : </p>
           <textarea
@@ -126,9 +126,28 @@ const UploadNFTForm = ({ contract }) => {
         <br />
         <br />
         <hr />
-        <button type="submit" disabled={loading}>
+        {/* <button type="submit" className="submit" disabled={loading}>
           {loading ? "Uploading..." : "Submit"}
-        </button>
+        </button> */}
+        <div className="submitbtn">
+          <button class="btn" type="submit" disabled={loading}>
+            <svg>
+              <defs>
+                <linearGradient id="gradiant">
+                  <stop stop-color="#FF8282" offset="0%"></stop>
+                  <stop stop-color="#E178ED" offset="100%"></stop>
+                </linearGradient>
+              </defs>
+              <rect
+                height="50"
+                width="150"
+                stroke="url(#gradiant)"
+                fill="none"
+              ></rect>
+            </svg>
+            <span>{loading ? "Uploading..." : "Submit"}</span>
+          </button>
+        </div>
       </form>
     </div>
   );

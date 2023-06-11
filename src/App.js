@@ -71,10 +71,10 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Navbar 
+      <Navbar 
       connectWallet = {connectWallet}
       account = {account}
-      /> */}
+      />
       {/* <button onClick={connectWallet}>Connect wallet 🦊</button>*/}
       <UploadNFTForm contract={contract} />
       {/* <Marketplace contract={contract}/>  */}
