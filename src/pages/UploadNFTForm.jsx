@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { ethers } from "ethers";
+import "./UploadNFTForm.css";
 
 const UploadNFTForm = ({ contract }) => {
   const [nftName, setNFTName] = useState("");
@@ -54,14 +55,6 @@ const UploadNFTForm = ({ contract }) => {
         }
       );
 
-      // const provider = new ethers.providers.Web3Provider(window.ethereum);
-      // await provider.send("eth_requestAccounts", []);
-      // const signer = provider.getSigner();
-      // const contract = new ethers.Contract(
-      //   contractAddress,
-      //   contractAbi,
-      //   signer
-      // );
       let listingPrice = await contract.getListPrice();
       listingPrice = listingPrice.toString();
       const tx = await contract.createToken(
@@ -84,50 +77,60 @@ const UploadNFTForm = ({ contract }) => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <label>
-        NFT Name:
-        <input
-          type="text"
-          value={nftName}
-          onChange={(e) => setNFTName(e.target.value)}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        NFT Description:
-        <textarea
-          value={nftDescription}
-          onChange={(e) => setNFTDescription(e.target.value)}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Price (in Ether):
-        <input
-          type="text"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Image:
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          required
-        />
-      </label>
-      <br />
-      <button type="submit" disabled={loading}>
-        {loading ? "Uploading..." : "Submit"}
-      </button>
-    </form>
+    <div className="UploadNFTForm">
+      <form onSubmit={handleFormSubmit}>
+        <label>
+          <p className="head"> NFT Name : </p>
+          <input
+            className="input"
+            type="text"
+            value={nftName}
+            onChange={(e) => setNFTName(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        <br />
+        
+        <label>
+          <p className="head"> NFT Description : </p>
+          <textarea
+            value={nftDescription}
+            onChange={(e) => setNFTDescription(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        <br />
+        <label>
+          <p className="head"> Price (in Matic) : </p>
+          <input
+            className="input"
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+        </label>
+        <br />
+        <br />
+        <label>
+          <p className="head"> Image : </p>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            required
+          />
+        </label>
+        <br />
+        <br />
+        <hr />
+        <button type="submit" disabled={loading}>
+          {loading ? "Uploading..." : "Submit"}
+        </button>
+      </form>
+    </div>
   );
 };
 

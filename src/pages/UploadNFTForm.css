@@ -1,0 +1,67 @@
+.UploadNFTForm {
+  background-color: #171717;
+  width: 100vw;
+  height: 90vh;
+  color: white;
+  padding-top: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.UploadNFTForm p {
+  margin: 0;
+}
+
+.UploadNFTForm label {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  width: 80vw;
+}
+
+.UploadNFTForm input.input {
+  width: 100%;
+  background-color: #595959;
+  border: 1.5px solid #cecece;
+  border-radius: 15px;
+  height: 5vh;
+}
+
+
+
+.UploadNFTForm textarea {
+  width: 100%;
+  background-color: #595959;
+  border: 1.5px solid #cecece;
+  border-radius: 15px;
+  height: 30vh;
+}
+
+.UploadNFTForm p.head {
+  width: 15vw;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.UploadNFTForm hr {
+  border: 1px solid #d9d9d9;
+  width: 100%;
+  text-align: center;
+}
+
+.UploadNFTForm input{
+  width: 70vw;
+}
+
+.UploadNFTForm input[type="file"]::file-selector-button {
+  background-color: #171717;
+  color: #3584fb;
+  border: 2.5px solid #3584fb;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 0.7rem;
+  border-radius: 10px;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  margin-right: 10vw;
+}

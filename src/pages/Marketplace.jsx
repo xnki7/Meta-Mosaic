@@ -18,9 +18,7 @@ function Marketplace({ contract }) {
 
   const fetchNFTMetadata = async (tokenURI) => {
     try {
-      const response = await axios.get(
-        `https://ipfs.io/ipfs/${tokenURI}`
-      );
+      const response = await axios.get(`https://ipfs.io/ipfs/${tokenURI}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching NFT metadata:", error);
@@ -64,7 +62,10 @@ function Marketplace({ contract }) {
                 <div>
                   <h3>{nft.metadata.name}</h3>
                   <p>{nft.metadata.description}</p>
-                  <img src={`https://ipfs.io/ipfs/${nft.metadata.imageCID}`} alt={nft.metadata.name} />
+                  <img
+                    src={`https://ipfs.io/ipfs/${nft.metadata.imageCID}`}
+                    alt={nft.metadata.name}
+                  />
                 </div>
               ) : (
                 <p>Loading metadata...</p>
