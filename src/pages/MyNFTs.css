@@ -1,11 +1,11 @@
-.Marketplace {
+.MyNFTs {
   width: 100%;
   padding-top: 20vh;
   background-color: #171717;
   min-height: 100vh;
 }
 
-.Marketplace .NFTitems {
+.MyNFTs .NFTitems {
   width: 100%;
   display: flex;
 }

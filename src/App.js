@@ -4,6 +4,7 @@ import UploadNFTForm from "./pages/UploadNFTForm";
 import Marketplace from "./pages/Marketplace";
 import Navbar from "./components/navbar";
 import NFTcard from "./components/NFTcard";
+import MyNFTs from "./pages/MyNFTs";
 import { contractAddress, contractAbi } from "./constant";
 import { ethers } from "ethers";
 
@@ -72,13 +73,11 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar 
-      connectWallet = {connectWallet}
-      account = {account}
-      />
+      <Navbar connectWallet={connectWallet} account={account} />
       {/* <UploadNFTForm contract={contract} /> */}
-      <Marketplace contract={contract}/> 
+      {/* <Marketplace contract={contract}/>  */}
       {/* <NFTcard/> */}
+      <MyNFTs contract={contract} isConnected={isConnected}/>
     </div>
   );
 }

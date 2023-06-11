@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import "./MyNFTs.css";
+import { useState, useEffect } from "react";
 import NFTcard from "../components/NFTcard";
-import "./Marketplace.css"
 import axios from "axios";
 
-function Marketplace({ contract }) {
+function MyNFTs({ contract, isConnected }) {
   const [nfts, setNfts] = useState([]);
 
   useEffect(() => {
-    if (contract) {
-      getAllNFTs();
+    if (contract && isConnected) {
+      getMyNFTs();
     }
-  }, [contract]);
+  }, [contract, isConnected]);
 
-  const getAllNFTs = async () => {
-    const tx = await contract.getAllNFTs();
+  const getMyNFTs = async () => {
+    const tx = await contract.getMyNFTs();
     setNfts(tx);
   };
 
@@ -51,9 +52,9 @@ function Marketplace({ contract }) {
   }, [nfts]); // Wrap `nfts` in a function
 
   return (
-    <div className="Marketplace">
+    <div className="MyNFTs">
       <div className="NFTitems">
-        {nfts.length > 0 ? (
+        {nfts.length > 0  ? (
           nfts
             .slice(0)
             .reverse()
@@ -82,4 +83,4 @@ function Marketplace({ contract }) {
   );
 }
 
-export default Marketplace;
+export default MyNFTs;
