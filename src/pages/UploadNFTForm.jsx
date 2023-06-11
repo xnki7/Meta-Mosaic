@@ -60,7 +60,7 @@ const UploadNFTForm = ({ contract }) => {
       const tx = await contract.createToken(
         nftUploadResponse.data.IpfsHash,
         ethers.utils.parseEther(price),
-        { gasLimit: 500000, value: listingPrice }
+        { gasLimit: 900000, value: listingPrice }
       );
 
       await tx.wait();
@@ -103,7 +103,7 @@ const UploadNFTForm = ({ contract }) => {
           <p className="head"> Price (in Matic) : </p>
           <input
             className="input"
-            type="number"
+            type="text"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             required

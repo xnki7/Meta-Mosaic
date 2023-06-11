@@ -12,10 +12,11 @@ contract NFTMarketplace is ERC721URIStorage {
     Counters.Counter private _tokenIds;
     //Keeps track of the number of items sold on the marketplace
     Counters.Counter private _itemsSold;
+    Counters.Counter private _itemsListed;
     //owner is the contract address that created the smart contract
     address payable owner;
     //The fee charged by the marketplace to be allowed to list an NFT
-    uint256 listPrice = 0.5 ether;
+    uint256 listPrice = 0.1 ether;
 
     //The structure to store info about a listed token
     struct ListedToken {
@@ -24,6 +25,14 @@ contract NFTMarketplace is ERC721URIStorage {
         address payable seller;
         uint256 price;
         bool currentlyListed;
+    }
+
+    struct tokenHistory {
+        uint256 tokenId;
+        address soldTo;
+        address soldBy;
+        string message;
+        uint256 timeStamp;
     }
 
     //the event emitted when a token is successfully listed
@@ -35,16 +44,27 @@ contract NFTMarketplace is ERC721URIStorage {
         bool currentlyListed
     );
 
+
+    tokenHistory[] public historyArray;
+
     //This mapping maps tokenId to token info and is helpful when retrieving details about a tokenId
     mapping(uint256 => ListedToken) private idToListedToken;
 
-    constructor() ERC721("NFTMarketplace", "NFTM") {
+    mapping(uint256 => tokenHistory) public idToTokenHistory;
+    mapping(uint256 => tokenHistory[]) public idToHistoryArray;
+
+
+    constructor() ERC721("MetaMosiac", "MM") {
         owner = payable(msg.sender);
     }
 
     function updateListPrice(uint256 _listPrice) public payable {
         require(owner == msg.sender, "Only owner can update listing price");
         listPrice = _listPrice;
+    }
+
+    function getTokenHistory(uint256 _tokenId) public view returns(tokenHistory[] memory){
+        return(idToHistoryArray[_tokenId]);
     }
 
     function getListPrice() public view returns (uint256) {
@@ -68,6 +88,7 @@ contract NFTMarketplace is ERC721URIStorage {
     function createToken(string memory tokenURI, uint256 price) public payable returns (uint) {
         //Increment the tokenId counter, which is keeping track of the number of minted NFTs
         _tokenIds.increment();
+        _itemsListed.increment();
         uint256 newTokenId = _tokenIds.current();
 
         //Mint the NFT with tokenId newTokenId to the address who called createToken
@@ -98,6 +119,8 @@ contract NFTMarketplace is ERC721URIStorage {
         );
 
         _transfer(msg.sender, address(this), tokenId);
+        idToTokenHistory[tokenId] = tokenHistory(tokenId, address(0), msg.sender, "Token Created", block.timestamp);
+        idToHistoryArray[tokenId].push(idToTokenHistory[tokenId]);
         //Emit the event for successful transfer. The frontend parses this message and updates the end user
         emit TokenListedSuccess(
             tokenId,
@@ -110,18 +133,24 @@ contract NFTMarketplace is ERC721URIStorage {
     
     //This will return all the NFTs currently listed to be sold on the marketplace
     function getAllNFTs() public view returns (ListedToken[] memory) {
-        uint nftCount = _tokenIds.current();
+        uint nftCount2 = _tokenIds.current();
+        uint nftCount = _itemsListed.current();
         ListedToken[] memory tokens = new ListedToken[](nftCount);
         uint currentIndex = 0;
         uint currentId;
         //at the moment currentlyListed is true for all, if it becomes false in the future we will 
         //filter out currentlyListed == false over here
-        for(uint i=0;i<nftCount;i++)
+        for(uint i=0;i<nftCount2;i++)
         {
-            currentId = i + 1;
-            ListedToken storage currentItem = idToListedToken[currentId];
-            tokens[currentIndex] = currentItem;
-            currentIndex += 1;
+            if(idToListedToken[currentId+1].currentlyListed == true){
+                currentId = i + 1;
+                ListedToken storage currentItem = idToListedToken[currentId];
+                tokens[currentIndex] = currentItem;
+                currentIndex += 1;
+            }
+            else{
+                currentId = i + 1;
+            }
         }
         //the array 'tokens' has the list of all NFTs in the marketplace
         return tokens;
@@ -155,14 +184,19 @@ contract NFTMarketplace is ERC721URIStorage {
     }
 
     function executeSale(uint256 tokenId) public payable {
-        uint price = idToListedToken[tokenId].price;
+        uint price = (idToListedToken[tokenId].price)*1000000000000000000;
         address seller = idToListedToken[tokenId].seller;
         require(msg.value == price, "Please submit the asking price in order to complete the purchase");
 
         //update the details of the token
-        idToListedToken[tokenId].currentlyListed = true;
+        // idToListedToken[tokenId].currentlyListed = true;
+        idToListedToken[tokenId].currentlyListed = false;
         idToListedToken[tokenId].seller = payable(msg.sender);
         _itemsSold.increment();
+        _itemsListed.decrement();
+
+        idToTokenHistory[tokenId] = tokenHistory(tokenId, msg.sender, seller, "Token Sold", block.timestamp);
+        idToHistoryArray[tokenId].push(idToTokenHistory[tokenId]);
 
         //Actually transfer the token to the new owner
         _transfer(address(this), msg.sender, tokenId);
@@ -173,5 +207,51 @@ contract NFTMarketplace is ERC721URIStorage {
         payable(owner).transfer(listPrice);
         //Transfer the proceeds from the sale to the seller of the NFT
         payable(seller).transfer(msg.value);
+    }
+
+    function reListToken(uint256 tokenId, uint256 price) public payable returns (uint) {
+        //Increment the tokenId counter, which is keeping track of the number of minted NFTs
+        // _tokenIds.increment();
+        _itemsListed.increment();
+        // uint256 newTokenId = tokenId;
+
+        //Mint the NFT with tokenId newTokenId to the address who called createToken
+        // _safeMint(msg.sender, newTokenId);
+
+        //Map the tokenId to the tokenURI (which is an IPFS URL with the NFT metadata)
+        // _setTokenURI(newTokenId, tokenURI);
+
+        //Helper function to update Global variables and emit an event
+        updateListedToken(tokenId, price);
+
+        return tokenId;
+    }
+
+    function updateListedToken(uint256 tokenId, uint256 price) private {
+        //Make sure the sender sent enough ETH to pay for listing
+        require(msg.value == listPrice, "Hopefully sending the correct price");
+        //Just sanity check
+        require(price > 0, "Make sure the price isn't negative");
+
+        //Update the mapping of tokenId's to Token details, useful for retrieval functions
+        idToListedToken[tokenId] = ListedToken(
+            tokenId,
+            payable(address(this)),
+            payable(msg.sender),
+            price,
+            true
+        );
+
+        _transfer(msg.sender, address(this), tokenId);
+        idToTokenHistory[tokenId] = tokenHistory(tokenId, address(0), msg.sender, "Token Relisted", block.timestamp);
+        idToHistoryArray[tokenId].push(idToTokenHistory[tokenId]);
+        //Emit the event for successful transfer. The frontend parses this message and updates the end user
+        emit TokenListedSuccess(
+            tokenId,
+            address(this),
+            msg.sender,
+            price,
+            true
+        );
     }
 }

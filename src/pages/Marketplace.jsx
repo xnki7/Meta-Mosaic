@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
+import NFTcard from "../components/NFTcard";
 import axios from "axios";
 
 function Marketplace({ contract }) {
@@ -57,16 +58,18 @@ function Marketplace({ contract }) {
           .reverse()
           .map((nft) => (
             <div key={nft.tokenId}>
-              <h2>{nft.tokenId.toString()}</h2>
+              {/* <h2>{nft.tokenId.toString()}</h2> */}
               {nft.metadata ? (
                 <div>
-                  <h3>{nft.metadata.name}</h3>
+                  {/* <h3>{nft.metadata.name}</h3>
                   <p>{nft.metadata.description}</p>
                   <img
                     src={`https://ipfs.io/ipfs/${nft.metadata.imageCID}`}
                     alt={nft.metadata.name}
-                  />
+                  /> */}
+                  <NFTcard id={nft.tokenId.toString()} title={nft.metadata.name} description={nft.metadata.description} img={`https://ipfs.io/ipfs/${nft.metadata.imageCID}`} price={nft.price.toString()} seller={nft.seller.toString()} />
                 </div>
+
               ) : (
                 <p>Loading metadata...</p>
               )}
@@ -75,6 +78,7 @@ function Marketplace({ contract }) {
       ) : (
         <p>Loading...</p>
       )}
+
     </div>
   );
 }
