@@ -89,9 +89,7 @@ const UploadNFTForm = ({ contract }) => {
             required
           />
         </label>
-        <br />
-        <br />
-
+        <div className="space"></div>
         <label>
           <p className="head"> NFT Description : </p>
           <textarea
@@ -100,8 +98,7 @@ const UploadNFTForm = ({ contract }) => {
             required
           />
         </label>
-        <br />
-        <br />
+        <div className="space"></div>
         <label>
           <p className="head"> Price (in Matic) : </p>
           <input
@@ -112,8 +109,7 @@ const UploadNFTForm = ({ contract }) => {
             required
           />
         </label>
-        <br />
-        <br />
+        <div className="space"></div>
         <label>
           <p className="head"> Image : </p>
           <input
@@ -123,9 +119,9 @@ const UploadNFTForm = ({ contract }) => {
             required
           />
         </label>
-        <br />
-        <br />
+        <div className="space"></div>
         <hr />
+        <div className="space"></div>
         {/* <button type="submit" className="submit" disabled={loading}>
           {loading ? "Uploading..." : "Submit"}
         </button> */}
