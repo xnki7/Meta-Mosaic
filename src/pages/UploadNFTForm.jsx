@@ -77,75 +77,77 @@ const UploadNFTForm = ({ contract }) => {
   };
 
   return (
-    <div className="UploadNFTForm">
-      <form onSubmit={handleFormSubmit}>
-        <label>
-          <p className="head"> NFT Name : </p>
-          <input
-            className="input"
-            type="text"
-            value={nftName}
-            onChange={(e) => setNFTName(e.target.value)}
-            required
-          />
-        </label>
-        <div className="space"></div>
-        <label>
-          <p className="head"> NFT Description : </p>
-          <textarea
-            value={nftDescription}
-            onChange={(e) => setNFTDescription(e.target.value)}
-            required
-          />
-        </label>
-        <div className="space"></div>
-        <label>
-          <p className="head"> Price (in Matic) : </p>
-          <input
-            className="input"
-            type="text"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
-          />
-        </label>
-        <div className="space"></div>
-        <label>
-          <p className="head"> Image : </p>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            required
-          />
-        </label>
-        <div className="space"></div>
-        <hr />
-        <div className="space"></div>
-        {/* <button type="submit" className="submit" disabled={loading}>
+    <>
+      <div className="UploadNFTForm">
+        <form onSubmit={handleFormSubmit}>
+          <label>
+            <p className="head"> NFT Name : </p>
+            <input
+              className="input"
+              type="text"
+              value={nftName}
+              onChange={(e) => setNFTName(e.target.value)}
+              required
+            />
+          </label>
+          <div className="space"></div>
+          <label>
+            <p className="head"> NFT Description : </p>
+            <textarea
+              value={nftDescription}
+              onChange={(e) => setNFTDescription(e.target.value)}
+              required
+            />
+          </label>
+          <div className="space"></div>
+          <label>
+            <p className="head"> Price (in Matic) : </p>
+            <input
+              className="input"
+              type="text"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+            />
+          </label>
+          <div className="space"></div>
+          <label>
+            <p className="head"> Image : </p>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              required
+            />
+          </label>
+          <div className="space"></div>
+          <hr />
+          <div className="space"></div>
+          {/* <button type="submit" className="submit" disabled={loading}>
           {loading ? "Uploading..." : "Submit"}
         </button> */}
-        <div className="submitbtn">
-          <button class="btn" type="submit" disabled={loading}>
-            <svg>
-              <defs>
-                <linearGradient id="gradiant">
-                  <stop stop-color="#FF8282" offset="0%"></stop>
-                  <stop stop-color="#E178ED" offset="100%"></stop>
-                </linearGradient>
-              </defs>
-              <rect
-                height="50"
-                width="150"
-                stroke="url(#gradiant)"
-                fill="none"
-              ></rect>
-            </svg>
-            <span>{loading ? "Uploading..." : "Submit"}</span>
-          </button>
-        </div>
-      </form>
-    </div>
+          <div className="submitbtn">
+            <button class="btn" type="submit" disabled={loading}>
+              <svg>
+                <defs>
+                  <linearGradient id="gradiant">
+                    <stop stop-color="#FF8282" offset="0%"></stop>
+                    <stop stop-color="#E178ED" offset="100%"></stop>
+                  </linearGradient>
+                </defs>
+                <rect
+                  height="50"
+                  width="150"
+                  stroke="url(#gradiant)"
+                  fill="none"
+                ></rect>
+              </svg>
+              <span>{loading ? "Uploading..." : "Submit"}</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

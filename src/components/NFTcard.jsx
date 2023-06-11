@@ -3,7 +3,7 @@ import "./NFTcard.css";
 
 function NFTcard({id, title, description, img, price, seller}) {
   return (
-    <div className="NFTcard">
+    <div className="NFTcard" >
       <div className="image">
         {/* eslint-disable-next-line */}
         <img src={img} />

@@ -2,6 +2,7 @@ import React from "react";
 import "./MyNFTs.css";
 import { useState, useEffect } from "react";
 import NFTcard from "../components/NFTcard";
+
 import axios from "axios";
 
 function MyNFTs({ contract, isConnected }) {
@@ -52,34 +53,37 @@ function MyNFTs({ contract, isConnected }) {
   }, [nfts]); // Wrap `nfts` in a function
 
   return (
-    <div className="MyNFTs">
-      <div className="NFTitems">
-        {nfts.length > 0  ? (
-          nfts
-            .slice(0)
-            .reverse()
-            .map((nft) => (
-              <>
-                {nft.metadata ? (
-                  <NFTcard
-                    key={nft.tokenId}
-                    id={nft.tokenId.toString()}
-                    title={nft.metadata.name}
-                    description={nft.metadata.description}
-                    img={`https://ipfs.io/ipfs/${nft.metadata.imageCID}`}
-                    price={nft.price.toString()}
-                    seller={nft.seller.toString()}
-                  />
-                ) : (
-                  <p>Loading metadata...</p>
-                )}
-              </>
-            ))
-        ) : (
-          <p>Loading...</p>
-        )}
+    <>
+
+      <div className="MyNFTs">
+        <div className="NFTitems">
+          {nfts.length > 0 ? (
+            nfts
+              .slice(0)
+              .reverse()
+              .map((nft) => (
+                <>
+                  {nft.metadata ? (
+                    <NFTcard
+                      key={nft.tokenId}
+                      id={nft.tokenId.toString()}
+                      title={nft.metadata.name}
+                      description={nft.metadata.description}
+                      img={`https://ipfs.io/ipfs/${nft.metadata.imageCID}`}
+                      price={nft.price.toString()}
+                      seller={nft.seller.toString()}
+                    />
+                  ) : (
+                    <p>Loading metadata...</p>
+                  )}
+                </>
+              ))
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

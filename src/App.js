@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import UploadNFTForm from "./pages/UploadNFTForm";
 import Marketplace from "./pages/Marketplace";
 import Navbar from "./components/navbar";
-import NFTcard from "./components/NFTcard";
 import MyNFTs from "./pages/MyNFTs";
 import { contractAddress, contractAbi } from "./constant";
 import { ethers } from "ethers";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [provider, setProvider] = useState(null);
@@ -74,10 +74,18 @@ function App() {
   return (
     <div className="App">
       <Navbar connectWallet={connectWallet} account={account} />
-      {/* <UploadNFTForm contract={contract} /> */}
-      {/* <Marketplace contract={contract}/>  */}
-      {/* <NFTcard/> */}
-      <MyNFTs contract={contract} isConnected={isConnected}/>
+
+      <Routes>
+        <Route path="/" element={<Marketplace contract={contract} />} />
+        <Route
+          path="/MyNFTs"
+          element={<MyNFTs contract={contract} isConnected={isConnected} />}
+        />
+        <Route
+          path="/UploadNFTForm"
+          element={<UploadNFTForm contract={contract} />}
+        />
+      </Routes>
     </div>
   );
 }
