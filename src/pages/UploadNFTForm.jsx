@@ -30,9 +30,9 @@ const UploadNFTForm = ({ contract }) => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            pinata_api_key: "6cd3c58633b351f064d8",
+            pinata_api_key: "e0b1eac67c09d2b0e44b",
             pinata_secret_api_key:
-              "81adfa6c6ee60d6c9e84d600bda1689c67f53a7bc84f8d71f72e32e89f6f837f",
+              "f26c855b8a4b802c56abc8afc6b9abbc5c6a29ce6352a28606248e514c5d4189",
           },
         }
       );
@@ -48,9 +48,9 @@ const UploadNFTForm = ({ contract }) => {
         nftData,
         {
           headers: {
-            pinata_api_key: "6cd3c58633b351f064d8",
+            pinata_api_key: "e0b1eac67c09d2b0e44b",
             pinata_secret_api_key:
-              "81adfa6c6ee60d6c9e84d600bda1689c67f53a7bc84f8d71f72e32e89f6f837f",
+              "f26c855b8a4b802c56abc8afc6b9abbc5c6a29ce6352a28606248e514c5d4189",
           },
         }
       );
@@ -104,7 +104,7 @@ const UploadNFTForm = ({ contract }) => {
             <p className="head"> Price (in Matic) : </p>
             <input
               className="input"
-              type="text"
+              type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
               required

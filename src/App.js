@@ -76,7 +76,7 @@ function App() {
       <Navbar connectWallet={connectWallet} account={account} />
       
       <Routes>
-        <Route path="/" element={<Marketplace contract={contract} />} />
+        <Route path="/" element={<Marketplace contract={contract} isConnected={isConnected}/>} />
         <Route
           path="/MyNFTs"
           element={<MyNFTs contract={contract} isConnected={isConnected} />}

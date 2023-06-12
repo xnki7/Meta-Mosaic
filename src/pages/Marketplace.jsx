@@ -4,7 +4,7 @@ import "./Marketplace.css";
 import NFTmodal from "./NFTmodal";
 import axios from "axios";
 
-function Marketplace({ contract }) {
+function Marketplace({ contract, isConnected }) {
   const [nfts, setNfts] = useState([]);
   const [selectedNFT, setSelectedNFT] = useState(null);
 
@@ -55,8 +55,12 @@ function Marketplace({ contract }) {
   return (
     <>
       <div className="Marketplace">
+        <p className="heading">
+          "Step into the captivating realm of Meta Mosaic, where a kaleidoscope
+          of breathtaking NFTs awaits to mesmerize your senses."
+        </p>
         <div className="NFTitems">
-          {nfts.length > 0 ? (
+          {isConnected && nfts.length > 0 ? (
             nfts
               .slice(0)
               .reverse()
@@ -72,7 +76,7 @@ function Marketplace({ contract }) {
                       price={nft.price.toString()}
                       seller={nft.seller.toString()}
                       setSelectedNFT={setSelectedNFT}
-                      nft ={nft}
+                      nft={nft}
                     />
                   ) : (
                     <p>Loading metadata...</p>
@@ -80,7 +84,7 @@ function Marketplace({ contract }) {
                 </>
               ))
           ) : (
-            <p>Loading...</p>
+            <p>Connect your wallet inorder to see listed NFTs.</p>
           )}
         </div>
         {selectedNFT && (

@@ -2,11 +2,13 @@ import React from "react";
 import "./MyNFTs.css";
 import { useState, useEffect } from "react";
 import NFTcard from "../components/NFTcard";
+import NFTmodal from "./NFTmodal";
 
 import axios from "axios";
 
 function MyNFTs({ contract, isConnected }) {
   const [nfts, setNfts] = useState([]);
+  const [selectedNFT, setSelectedNFT] = useState(null);
 
   useEffect(() => {
     if (contract && isConnected) {
@@ -54,10 +56,9 @@ function MyNFTs({ contract, isConnected }) {
 
   return (
     <>
-
       <div className="MyNFTs">
         <div className="NFTitems">
-          {nfts.length > 0 ? (
+          {isConnected && nfts.length > 0 ? (
             nfts
               .slice(0)
               .reverse()
@@ -72,6 +73,8 @@ function MyNFTs({ contract, isConnected }) {
                       img={`https://ipfs.io/ipfs/${nft.metadata.imageCID}`}
                       price={nft.price.toString()}
                       seller={nft.seller.toString()}
+                      setSelectedNFT={setSelectedNFT}
+                      nft={nft}
                     />
                   ) : (
                     <p>Loading metadata...</p>
@@ -79,9 +82,19 @@ function MyNFTs({ contract, isConnected }) {
                 </>
               ))
           ) : (
-            <p>Loading...</p>
+            <p>Connect your wallet inorder to see listed NFTs.</p>
           )}
         </div>
+        {selectedNFT && (
+          <>
+            <NFTmodal
+              nft={selectedNFT}
+              contract={contract}
+              setSelectedNFT={setSelectedNFT}
+            />
+            <div className="overlay" onClick={() => setSelectedNFT(null)}></div>
+          </>
+        )}
       </div>
     </>
   );

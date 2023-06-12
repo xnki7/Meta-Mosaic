@@ -30,7 +30,7 @@ function NFTcard({
         </div>
         <div className="right">
           <p className="id">#{id}</p>
-          <p className="price">{price / 1000000000000000000} MATIC</p>
+          <p className="price">{price/1000000000000000000} MATIC</p>
         </div>
       </div>
     </div>
