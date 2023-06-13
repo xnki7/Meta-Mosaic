@@ -72,14 +72,15 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
           <p className="title">
             {nft.metadata.name}#{nft.tokenId.toString()}
           </p>
-          <p className="title">
-            Volume Traded : {volume.toString() / 1000000000000000000} MATIC
-          </p>
-          <p className="address">{nft.seller.toString()}</p>
+
+          <p className="address">{nft.seller.toString().slice(0, 6)+ "..." +nft.seller.toString().slice(38, 42)}</p>
           <p className="description">{nft.metadata.description}</p>
+          <p className="volume">
+            Volume: {volume.toString() / 1000000000000000000} MATIC
+          </p>
           {!isOwner ? (
             <p className="price">
-              Price : {nft.price.toString() / 1000000000000000000} MATIC
+              Price: {nft.price.toString() / 1000000000000000000} MATIC
             </p>
           ) : (
             <></>

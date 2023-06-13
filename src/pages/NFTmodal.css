@@ -11,7 +11,8 @@
   /* border-radius: 0px 0px 20px 20px; */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   padding: 0px;
-  border: solid 3px #999999;
+  border: solid 3px rgba(206, 206, 206, 0.50);
+  border-radius: 20px;
   color: white;
   padding: 4vh;
 }
@@ -22,7 +23,52 @@
     /* justify-content: space-between; */
 }
 
-.NFTmodal .upperContent img{
-    height: 70vh;
-    width: 70vh;
+.NFTmodal .upperContent .left img{
+    height: 65vh;
+    width: 65vh;
+    margin-left: 1.5vh;
+    border-radius: 20px;
+    border:solid 2.5px rgba(206, 206, 206, 0.25)
+}
+
+.NFTmodal .upperContent .right{
+  margin-left: 2vh;
+  margin-right: 2vh;
+}
+
+.NFTmodal .upperContent .right .title{
+  font-weight: 600;
+  font-size: 45px;
+  color: #CECECE;
+  line-height: 54px;
+  margin-top: 0vh;
+  margin-bottom: 1vh;
+}
+
+.NFTmodal .upperContent .right .volume {
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 30px;
+  color: #CECECE;
+  margin-top: 0.5vh;
+  margin-bottom: 1vh;
+}
+.NFTmodal .upperContent .right .address{
+  font-weight: 200;
+  font-size: 15px;
+  line-height: 18px;
+  color: #CECECE; 
+  margin-top: 0.5vh;
+  margin-bottom: 1vh;
+}
+
+.NFTmodal .upperContent .right .description{
+  font-weight: 200;
+  font-size: 17px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  margin-top: 1vh;
+    margin-bottom: 1vh;
+  color: #CECECE;
 }
