@@ -14,22 +14,22 @@ function Navbar({ connectWallet, account }) {
   return (
     <div className="navbar">
       <nav>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-        <img src={logo} alt="logo" className="logo" />
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <img src={logo} alt="logo" className="logo" />
         </Link>
         <div className="right">
           <Link to="/" style={{ textDecoration: "none" }}>
-            <button className="button-nav">
+            <button>
               <span class="text">Marketplace</span>
             </button>
           </Link>
           <Link to="/MyNFTs" style={{ textDecoration: "none" }}>
-            <button className="button-nav">
+            <button>
               <span class="text">My NFT(s)</span>
             </button>
           </Link>
           <Link to="/UploadNFTForm" style={{ textDecoration: "none" }}>
-            <button className="button-nav">
+            <button>
               <span class="text">Mint & List</span>
             </button>
           </Link>
