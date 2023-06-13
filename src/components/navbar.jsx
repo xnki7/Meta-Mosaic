@@ -19,17 +19,17 @@ function Navbar({ connectWallet, account }) {
         </Link>
         <div className="right">
           <Link to="/" style={{ textDecoration: "none" }}>
-            <button>
+            <button className="button-nav">
               <span class="text">Marketplace</span>
             </button>
           </Link>
           <Link to="/MyNFTs" style={{ textDecoration: "none" }}>
-            <button>
+            <button className="button-nav">
               <span class="text">My NFT(s)</span>
             </button>
           </Link>
           <Link to="/UploadNFTForm" style={{ textDecoration: "none" }}>
-            <button>
+            <button className="button-nav">
               <span class="text">Mint & List</span>
             </button>
           </Link>

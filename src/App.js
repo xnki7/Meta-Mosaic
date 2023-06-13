@@ -86,6 +86,7 @@ function App() {
           element={<UploadNFTForm contract={contract} />}
         />
       </Routes>
+
     </div>
   );
 }

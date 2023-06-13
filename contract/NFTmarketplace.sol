@@ -48,6 +48,7 @@ contract NFTMarketplace is ERC721URIStorage {
 
    
     mapping(uint256 => ListedToken) private idToListedToken;
+    ListedToken [] allTokens;
 
     mapping(uint256 => tokenHistory) public idToTokenHistory;
     mapping(uint256 => tokenHistory[]) public idToHistoryArray;
