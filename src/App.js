@@ -73,15 +73,6 @@ function App() {
 
   return (
     <div className="App">
-<<<<<<< HEAD
-      <Navbar 
-      connectWallet = {connectWallet}
-      account = {account}
-      />
-      {/* <button onClick={connectWallet}>Connect wallet 🦊</button> */}
-      <UploadNFTForm contract={contract} />
-      {/* <Marketplace contract={contract}/> */}
-=======
       <Navbar connectWallet={connectWallet} account={account} />
       
       <Routes>
@@ -95,7 +86,7 @@ function App() {
           element={<UploadNFTForm contract={contract} />}
         />
       </Routes>
->>>>>>> 2a96a566aff2f454f84ec385ec076da702ce3363
+
     </div>
   );
 }
