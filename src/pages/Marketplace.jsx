@@ -7,6 +7,7 @@ import axios from "axios";
 function Marketplace({ contract, isConnected }) {
   const [nfts, setNfts] = useState([]);
   const [selectedNFT, setSelectedNFT] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (contract) {
@@ -15,8 +16,10 @@ function Marketplace({ contract, isConnected }) {
   }, [contract]);
 
   const getAllNFTs = async () => {
+    setIsLoading(true);
     const tx = await contract.getAllNFTs();
     setNfts(tx);
+    setIsLoading(false);
   };
 
   const fetchNFTMetadata = async (tokenURI) => {
@@ -31,6 +34,7 @@ function Marketplace({ contract, isConnected }) {
 
   useEffect(() => {
     const fetchNFTDetails = async () => {
+      setIsLoading(true);
       const updatedNFTs = await Promise.all(
         nfts.map(async (nft) => {
           const uri = await contract.tokenURI(nft.tokenId);
@@ -41,6 +45,7 @@ function Marketplace({ contract, isConnected }) {
       );
       console.log("Updated NFTs:", updatedNFTs);
       setNfts(updatedNFTs);
+      setIsLoading(false);
     };
 
     const fetchNFTs = async () => {
@@ -50,7 +55,7 @@ function Marketplace({ contract, isConnected }) {
     };
 
     fetchNFTs();
-  }, [nfts]); // Wrap `nfts` in a function
+  }, [nfts]);
 
   return (
     <>
@@ -61,30 +66,43 @@ function Marketplace({ contract, isConnected }) {
         </p>
         <div className="NFTitems">
           {isConnected && nfts.length > 0 ? (
-            nfts
-              .slice(0)
-              .reverse()
-              .map((nft) => (
+            <>
+              {isLoading ? (
                 <>
-                  {nft.metadata ? (
-                    <NFTcard
-                      key={nft.tokenId}
-                      id={nft.tokenId.toString()}
-                      title={nft.metadata.name}
-                      description={nft.metadata.description}
-                      img={`https://ipfs.io/ipfs/${nft.metadata.imageCID}`}
-                      price={nft.price.toString()}
-                      seller={nft.seller.toString()}
-                      setSelectedNFT={setSelectedNFT}
-                      nft={nft}
-                    />
-                  ) : (
-                    <p>Loading metadata...</p>
-                  )}
+                  <div className="spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <div className="overlay"></div>
                 </>
-              ))
+              ) : (
+                nfts
+                  .slice(0)
+                  .reverse()
+                  .map((nft) => (
+                    <React.Fragment key={nft.tokenId}>
+                      {isConnected && nft.metadata ? (
+                        <NFTcard
+                          id={nft.tokenId.toString()}
+                          title={nft.metadata.name}
+                          description={nft.metadata.description}
+                          img={`https://ipfs.io/ipfs/${nft.metadata.imageCID}`}
+                          price={nft.price.toString()}
+                          seller={nft.seller.toString()}
+                          setSelectedNFT={setSelectedNFT}
+                          nft={nft}
+                        />
+                      ) : null}
+                    </React.Fragment>
+                  ))
+              )}
+            </>
           ) : (
-            <p>Connect your wallet inorder to see listed NFTs.</p>
+            <p>Connect your wallet in order to see listed NFTs.</p>
           )}
         </div>
         {selectedNFT && (

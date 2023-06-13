@@ -9,6 +9,7 @@ import axios from "axios";
 function MyNFTs({ contract, isConnected }) {
   const [nfts, setNfts] = useState([]);
   const [selectedNFT, setSelectedNFT] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (contract && isConnected) {
@@ -17,8 +18,10 @@ function MyNFTs({ contract, isConnected }) {
   }, [contract, isConnected]);
 
   const getMyNFTs = async () => {
+    setIsLoading(true);
     const tx = await contract.getMyNFTs();
     setNfts(tx);
+    setIsLoading(false);
   };
 
   const fetchNFTMetadata = async (tokenURI) => {
@@ -33,6 +36,7 @@ function MyNFTs({ contract, isConnected }) {
 
   useEffect(() => {
     const fetchNFTDetails = async () => {
+      setIsLoading(true);
       const updatedNFTs = await Promise.all(
         nfts.map(async (nft) => {
           const uri = await contract.tokenURI(nft.tokenId);
@@ -43,6 +47,7 @@ function MyNFTs({ contract, isConnected }) {
       );
       console.log("Updated NFTs:", updatedNFTs);
       setNfts(updatedNFTs);
+      setIsLoading(false);
     };
 
     const fetchNFTs = async () => {
@@ -55,36 +60,49 @@ function MyNFTs({ contract, isConnected }) {
   }, [nfts]); // Wrap `nfts` in a function
 
   return (
-    <>
-      <div className="MyNFTs">
-        <div className="NFTitems">
-          {isConnected && nfts.length > 0 ? (
-            nfts
-              .slice(0)
-              .reverse()
-              .map((nft) => (
-                <>
-                  {nft.metadata ? (
-                    <NFTcard
-                      key={nft.tokenId}
-                      id={nft.tokenId.toString()}
-                      title={nft.metadata.name}
-                      description={nft.metadata.description}
-                      img={`https://ipfs.io/ipfs/${nft.metadata.imageCID}`}
-                      price={nft.price.toString()}
-                      seller={nft.seller.toString()}
-                      setSelectedNFT={setSelectedNFT}
-                      nft={nft}
-                    />
-                  ) : (
-                    <p>Loading metadata...</p>
-                  )}
-                </>
-              ))
-          ) : (
-            <p>Connect your wallet inorder to see listed NFTs.</p>
-          )}
-        </div>
+    <div className="MyNFTs">
+      <div className="NFTitems">
+        {isConnected && nfts.length > 0 ? (
+          <>
+            {isLoading ? (
+              <>
+                <div className="spinner">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+                <div className="overlay"></div>
+              </>
+            ) : (
+              nfts
+                .slice(0)
+                .reverse()
+                .map((nft) => (
+                  <React.Fragment key={nft.tokenId}>
+                    {isConnected && nft.metadata ? (
+                      <NFTcard
+                        id={nft.tokenId.toString()}
+                        title={nft.metadata.name}
+                        description={nft.metadata.description}
+                        img={`https://ipfs.io/ipfs/${nft.metadata.imageCID}`}
+                        price={nft.price.toString()}
+                        seller={nft.seller.toString()}
+                        setSelectedNFT={setSelectedNFT}
+                        nft={nft}
+                      />
+                    ) : null}
+                  </React.Fragment>
+                ))
+            )}
+          </>
+        ) : (
+          <p>Connect your wallet in order to see your NFTs.</p>
+        )}
+      </div>
+      <div>
         {selectedNFT && (
           <>
             <NFTmodal
@@ -96,7 +114,7 @@ function MyNFTs({ contract, isConnected }) {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 }
 
