@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { ethers } from "ethers";
+import "./UploadNFTForm.css";
 
 const UploadNFTForm = ({ contract }) => {
   const [nftName, setNFTName] = useState("");
@@ -29,9 +30,9 @@ const UploadNFTForm = ({ contract }) => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            pinata_api_key: "6cd3c58633b351f064d8",
+            pinata_api_key: "e0b1eac67c09d2b0e44b",
             pinata_secret_api_key:
-              "81adfa6c6ee60d6c9e84d600bda1689c67f53a7bc84f8d71f72e32e89f6f837f",
+              "f26c855b8a4b802c56abc8afc6b9abbc5c6a29ce6352a28606248e514c5d4189",
           },
         }
       );
@@ -47,27 +48,19 @@ const UploadNFTForm = ({ contract }) => {
         nftData,
         {
           headers: {
-            pinata_api_key: "6cd3c58633b351f064d8",
+            pinata_api_key: "e0b1eac67c09d2b0e44b",
             pinata_secret_api_key:
-              "81adfa6c6ee60d6c9e84d600bda1689c67f53a7bc84f8d71f72e32e89f6f837f",
+              "f26c855b8a4b802c56abc8afc6b9abbc5c6a29ce6352a28606248e514c5d4189",
           },
         }
       );
 
-      // const provider = new ethers.providers.Web3Provider(window.ethereum);
-      // await provider.send("eth_requestAccounts", []);
-      // const signer = provider.getSigner();
-      // const contract = new ethers.Contract(
-      //   contractAddress,
-      //   contractAbi,
-      //   signer
-      // );
       let listingPrice = await contract.getListPrice();
       listingPrice = listingPrice.toString();
       const tx = await contract.createToken(
         nftUploadResponse.data.IpfsHash,
         ethers.utils.parseEther(price),
-        { gasLimit: 500000, value: listingPrice }
+        { gasLimit: 900000, value: listingPrice }
       );
 
       await tx.wait();
@@ -84,50 +77,77 @@ const UploadNFTForm = ({ contract }) => {
   };
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <label>
-        NFT Name:
-        <input
-          type="text"
-          value={nftName}
-          onChange={(e) => setNFTName(e.target.value)}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        NFT Description:
-        <textarea
-          value={nftDescription}
-          onChange={(e) => setNFTDescription(e.target.value)}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Price (in Ether):
-        <input
-          type="text"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Image:
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          required
-        />
-      </label>
-      <br />
-      <button type="submit" disabled={loading}>
-        {loading ? "Uploading..." : "Submit"}
-      </button>
-    </form>
+    <>
+      <div className="UploadNFTForm">
+        <form onSubmit={handleFormSubmit}>
+          <label>
+            <p className="head"> NFT Name : </p>
+            <input
+              className="input"
+              type="text"
+              value={nftName}
+              onChange={(e) => setNFTName(e.target.value)}
+              required
+            />
+          </label>
+          <div className="space"></div>
+          <label>
+            <p className="head"> NFT Description : </p>
+            <textarea
+              value={nftDescription}
+              onChange={(e) => setNFTDescription(e.target.value)}
+              required
+            />
+          </label>
+          <div className="space"></div>
+          <label>
+            <p className="head"> Price (in Matic) : </p>
+            <input
+              className="input"
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+            />
+          </label>
+          <div className="space"></div>
+          <label>
+            <p className="head"> Image : </p>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              required
+            />
+          </label>
+          <div className="space"></div>
+          <hr />
+          <div className="space"></div>
+          {/* <button type="submit" className="submit" disabled={loading}>
+          {loading ? "Uploading..." : "Submit"}
+        </button> */}
+          <div className="submitbtn">
+            <button class="btn" type="submit" disabled={loading}>
+              <svg>
+                <defs>
+                  <linearGradient id="gradiant">
+                    <stop stop-color="#FF8282" offset="0%"></stop>
+                    <stop stop-color="#E178ED" offset="100%"></stop>
+                  </linearGradient>
+                </defs>
+                <rect
+                  height="50"
+                  width="150"
+                  stroke="url(#gradiant)"
+                  fill="none"
+                ></rect>
+              </svg>
+              <span>{loading ? "Uploading..." : "Submit"}</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

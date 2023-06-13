@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import UploadNFTForm from "./pages/UploadNFTForm";
 import Marketplace from "./pages/Marketplace";
 import Navbar from "./components/navbar";
+import MyNFTs from "./pages/MyNFTs";
 import { contractAddress, contractAbi } from "./constant";
 import { ethers } from "ethers";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [provider, setProvider] = useState(null);
@@ -12,7 +14,7 @@ function App() {
   const [signer, setSigner] = useState(null);
   const [contract, setContract] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
-
+  
   useEffect(() => {
     loadBcData();
   }, []);
@@ -71,6 +73,7 @@ function App() {
 
   return (
     <div className="App">
+<<<<<<< HEAD
       <Navbar 
       connectWallet = {connectWallet}
       account = {account}
@@ -78,6 +81,21 @@ function App() {
       {/* <button onClick={connectWallet}>Connect wallet 🦊</button> */}
       <UploadNFTForm contract={contract} />
       {/* <Marketplace contract={contract}/> */}
+=======
+      <Navbar connectWallet={connectWallet} account={account} />
+      
+      <Routes>
+        <Route path="/" element={<Marketplace contract={contract} isConnected={isConnected}/>} />
+        <Route
+          path="/MyNFTs"
+          element={<MyNFTs contract={contract} isConnected={isConnected} />}
+        />
+        <Route
+          path="/UploadNFTForm"
+          element={<UploadNFTForm contract={contract} />}
+        />
+      </Routes>
+>>>>>>> 2a96a566aff2f454f84ec385ec076da702ce3363
     </div>
   );
 }
