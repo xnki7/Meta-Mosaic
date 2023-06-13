@@ -37,6 +37,7 @@ contract NFTMarketplace is ERC721URIStorage {
 
     //This mapping maps tokenId to token info and is helpful when retrieving details about a tokenId
     mapping(uint256 => ListedToken) private idToListedToken;
+    ListedToken [] allTokens;
 
     constructor() ERC721("NFTMarketplace", "NFTM") {
         owner = payable(msg.sender);
