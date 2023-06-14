@@ -4,13 +4,14 @@
   width: 17%;
   border-radius: 13px;
   padding: 0.75vh;
-  margin-left: 5vh;
+  margin-top: 2.5vh;
+  margin-left: 2.5vh;
+  margin-bottom: 2.5vh;
   box-shadow: 2px 2px 25px 3px rgba(206, 206, 206, 0.15),
     -2px -2px 25px 3px rgba(206, 206, 206, 0.15);
 }
 
 .NFTcard .image {
-  /* width: 95%; */
   height: 70%;
   border-radius: 10px;
 }

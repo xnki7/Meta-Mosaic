@@ -8,13 +8,20 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
   const [listed, setListed] = useState(false);
   const [price, setPrice] = useState(null);
   const [volume, setVolume] = useState(0);
+  const [creator, setCreator] = useState(null);
 
   useEffect(() => {
     getHistory(nft.tokenId.toString());
     IsOwner(nft.tokenId.toString());
     listStatus(nft.tokenId.toString());
     getVolume(nft.tokenId.toString());
+    getTokenCreator(nft.tokenId.toString());
   }, [nft.tokenId]);
+
+  const getTokenCreator = async (tokenId) => {
+    const tx = await contract.getCreator(tokenId);
+    setCreator(tx);
+  };
 
   const getHistory = async (tokenId) => {
     const tx = await contract.getTokenHistory(tokenId);
@@ -73,47 +80,67 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
             {nft.metadata.name} #{nft.tokenId.toString()}
           </p>
 
-          <p className="address">{nft.seller.toString().slice(0, 6)+ "..." +nft.seller.toString().slice(38, 42)}</p>
+          <p className="address">
+            {nft.seller.toString().slice(0, 6) +
+              "..." +
+              nft.seller.toString().slice(38, 42)}
+          </p>
           <p className="description">{nft.metadata.description}</p>
           <p className="volume">
-            Volume: {volume.toString() / 1000000000000000000} |MATIC
+            Volume: {volume.toString() / 1000000000000000000} MATIC
           </p>
-          {!isOwner ? (
-            <p className="price">
-              Price: {nft.price.toString() / 1000000000000000000} | MATIC
-            </p>
-          ) : (
-            <></>
-          )}
-          {isOwner && listed ? (
-            <>
-              <input
-                className="Price-input"
-                type="text"
-                name=""
-                id=""
-                placeholder="Enter price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-              <button onClick={Relist} className="botton-relist update-price"><strong>Relist</strong></button>
-            </>
-          ) : isOwner && !listed ? (
-            <>
-              <input
-                className="Price-input"
-                type="text"
-                name=""
-                id=""
-                placeholder="Enter price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-              <button onClick={Relist} className="botton-relist"><strong>Sell</strong></button>
-            </>
-          ) : (
-            <button onClick={handleSale} className="botton-buy"><strong>Buy</strong></button>
-          )}
+          <p className="creator">Creator: {creator}</p>
+          <div className="relistItems">
+            {!isOwner ? (
+              <p className="price">
+                Price: {nft.price.toString() / 1000000000000000000} MATIC
+              </p>
+            ) : (
+              <></>
+            )}
+            {isOwner && listed ? (
+              <>
+                <div className="relistItems">
+                  <input
+                    className="Price-input"
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="Enter price (in MATIC)"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                  <button
+                    onClick={Relist}
+                    className="botton-relist update-price"
+                  >
+                    <strong>Relist</strong>
+                  </button>
+                </div>
+              </>
+            ) : isOwner && !listed ? (
+              <>
+                <div className="relistItems">
+                  <input
+                    className="Price-input"
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="Enter price (in MATIC)"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                  <button onClick={Relist} className="botton-relist">
+                    <strong>Sell</strong>
+                  </button>
+                </div>
+              </>
+            ) : (
+              <button onClick={handleSale} className="botton-buy">
+                <strong>BUY</strong>
+              </button>
+            )}
+          </div>
         </div>
       </div>
       <div className="lowerContent">
@@ -134,8 +161,16 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
                   .reverse()
                   .map((historyItem, index) => (
                     <tr key={index}>
-                      <td>{historyItem.soldBy.toString().slice(0, 6)+ "..."+historyItem.soldBy.toString().slice(38, 42)}</td>
-                      <td>{historyItem.soldTo.toString().slice(0, 6)+ "..."+historyItem.soldTo.toString().slice(38, 42)}</td>
+                      <td>
+                        {historyItem.soldBy.toString().slice(0, 6) +
+                          "..." +
+                          historyItem.soldBy.toString().slice(38, 42)}
+                      </td>
+                      <td>
+                        {historyItem.soldTo.toString().slice(0, 6) +
+                          "..." +
+                          historyItem.soldTo.toString().slice(38, 42)}
+                      </td>
                       <td>{historyItem.message.toString()}</td>
                       <td>{convertTimestampToDate(historyItem.timeStamp)}</td>
                     </tr>

@@ -45,13 +45,20 @@
   margin-bottom: 1vh;
 }
 
+.NFTmodal .upperContent .right p.price{
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-top: 0vh;
+  margin-bottom: 0;
+}
+
 .NFTmodal .upperContent .right .volume {
   font-weight: 400;
   font-size: 25px;
   line-height: 30px;
   color: #CECECE;
   margin-top: 0.5vh;
-  margin-bottom: 1vh;
+  margin-bottom: 2vh;
 }
 .NFTmodal .upperContent .right .address{
   font-weight: 200;
@@ -59,7 +66,7 @@
   line-height: 18px;
   color: #CECECE; 
   margin-top: 0.5vh;
-  margin-bottom: 1vh;
+  margin-bottom: 2vh;
 }
 
 .NFTmodal .upperContent .right .description{
@@ -69,7 +76,7 @@
   display: flex;
   align-items: center;
   margin-top: 1vh;
-  margin-bottom: 1vh;
+  margin-bottom: 2vh;
   color: #CECECE;
 }
 
@@ -96,6 +103,7 @@ table{
   text-align: center;
   cursor: pointer;
   transition: 0.4s;
+  margin-left: 1vw;
 }
 
 .botton-buy:hover {
@@ -142,4 +150,11 @@ input.Price-input {
   height: 4.6vh;
   color: white;
   font-size: 2vh;
+  text-align: center;
+}
+
+.NFTmodal .upperContent .right .relistItems{
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
