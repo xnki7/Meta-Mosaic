@@ -69,6 +69,77 @@
   display: flex;
   align-items: center;
   margin-top: 1vh;
-    margin-bottom: 1vh;
+  margin-bottom: 1vh;
   color: #CECECE;
+}
+
+th,td {
+  border-bottom: 1px solid rgba(206, 206, 206, 0.25);
+  text-align: center;
+  height: 4vh;
+  align-items: center;
+  color: #CECECE;
+}
+table{
+  width: 100%;
+}
+
+.botton-buy {
+  padding-left: 33px;
+  padding-right: 33px;
+  padding-bottom: 13.5px;
+  padding-top: 13.5px;
+  border-radius: 10px;
+  background: #62ff00;
+  border: none;
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.botton-buy:hover {
+  box-shadow: 7px 5px 56px -14px #00ff33;
+}
+
+.botton-buy:active {
+  transform: scale(0.97);
+  box-shadow: 7px 5px 56px -10px #C3D900;
+}
+
+.botton-relist {
+  padding-left: 33px;
+  padding-right: 33px;
+  padding-bottom: 13.5px;
+  padding-top: 13.5px;
+  border-radius: 10px;
+  background: #FF7D00;
+  border: none;
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.botton-relist:hover {
+  box-shadow: 7px 5px 56px -14px #FF8900;
+}
+
+.botton-relist:active {
+  transform: scale(0.97);
+  box-shadow: 7px 5px 56px -10px #FF8900;
+}
+
+.update-price{
+  margin-left: 1.5vh;
+}
+
+input {
+  width: 40%;
+  background-color: #595959;
+  border: 1.5px solid #cecece;
+  border-radius: 11px;
+  height: 4.6vh;
+  color: white;
+  font-size: 2vh;
 }

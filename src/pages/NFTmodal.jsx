@@ -70,17 +70,17 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
         </div>
         <div className="right">
           <p className="title">
-            {nft.metadata.name}#{nft.tokenId.toString()}
+            {nft.metadata.name} #{nft.tokenId.toString()}
           </p>
 
           <p className="address">{nft.seller.toString().slice(0, 6)+ "..." +nft.seller.toString().slice(38, 42)}</p>
           <p className="description">{nft.metadata.description}</p>
           <p className="volume">
-            Volume: {volume.toString() / 1000000000000000000} MATIC
+            Volume: {volume.toString() / 1000000000000000000} |MATIC
           </p>
           {!isOwner ? (
             <p className="price">
-              Price: {nft.price.toString() / 1000000000000000000} MATIC
+              Price: {nft.price.toString() / 1000000000000000000} | MATIC
             </p>
           ) : (
             <></>
@@ -95,7 +95,7 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
-              <button onClick={Relist}>Relist</button>
+              <button onClick={Relist} className="botton-relist update-price"><strong>Relist</strong></button>
             </>
           ) : isOwner && !listed ? (
             <>
@@ -107,10 +107,10 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
-              <button onClick={Relist}>Sell</button>
+              <button onClick={Relist} className="botton-relist"><strong>Sell</strong></button>
             </>
           ) : (
-            <button onClick={handleSale}>Buy</button>
+            <button onClick={handleSale} className="botton-buy"><strong>Buy</strong></button>
           )}
         </div>
       </div>
@@ -132,8 +132,8 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
                   .reverse()
                   .map((historyItem, index) => (
                     <tr key={index}>
-                      <td>{historyItem.soldBy.toString()}</td>
-                      <td>{historyItem.soldTo.toString()}</td>
+                      <td>{historyItem.soldBy.toString().slice(0, 6)+ "..."+historyItem.soldBy.toString().slice(38, 42)}</td>
+                      <td>{historyItem.soldTo.toString().slice(0, 6)+ "..."+historyItem.soldTo.toString().slice(38, 42)}</td>
                       <td>{historyItem.message.toString()}</td>
                       <td>{convertTimestampToDate(historyItem.timeStamp)}</td>
                     </tr>
