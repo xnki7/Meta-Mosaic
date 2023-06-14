@@ -134,7 +134,7 @@ table{
   margin-left: 1.5vh;
 }
 
-input {
+input.Price-input {
   width: 40%;
   background-color: #595959;
   border: 1.5px solid #cecece;

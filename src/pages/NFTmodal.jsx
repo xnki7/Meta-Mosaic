@@ -88,6 +88,7 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
           {isOwner && listed ? (
             <>
               <input
+                className="Price-input"
                 type="text"
                 name=""
                 id=""
@@ -100,6 +101,7 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
           ) : isOwner && !listed ? (
             <>
               <input
+                className="Price-input"
                 type="text"
                 name=""
                 id=""

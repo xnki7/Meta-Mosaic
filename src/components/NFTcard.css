@@ -2,11 +2,11 @@
   height: 45vh;
   background-color: #464646;
   width: 17%;
-  border-radius: 10px;
+  border-radius: 13px;
   padding: 0.75vh;
-  margin-left: 3vh;
-  box-shadow: 3px 3px 25px 4px rgba(206, 206, 206, 0.15),
-    -3px -3px 25px 4px rgba(206, 206, 206, 0.15);
+  margin-left: 5vh;
+  box-shadow: 2px 2px 25px 3px rgba(206, 206, 206, 0.15),
+    -2px -2px 25px 3px rgba(206, 206, 206, 0.15);
 }
 
 .NFTcard .image {
@@ -18,13 +18,13 @@
 .NFTcard img {
   height: 100%;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 10px 10px 0px 0px;
 }
 
 .NFTcard .details {
   height: 30%;
   background-color: #202021;
-  border-radius: 10px;
+  border-radius: 0px 0px 10px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
