@@ -1,7 +1,7 @@
 .NFTcard {
   height: 45vh;
   background-color: #464646;
-  width: 17%;
+  width: 35vh;
   border-radius: 13px;
   padding: 0.75vh;
   margin-top: 2.5vh;
@@ -50,12 +50,12 @@
 
 .NFTcard .details p.title {
   color: #cecece;
-  font-size: 4vh;
+  font-size: 3.8vh;
   font-weight: 500;
 }
 
 .NFTcard .details p.address{
-    font-size: x-small;
+    font-size: 1.8vh;
     color: rgba(255, 255, 255, 0.55);
 }
 
@@ -69,5 +69,5 @@
 
 .NFTcard .details p.price{
     color: rgba(206, 206, 206, 0.58);
-    font-size: 3vh;
+    font-size: 2.75vh;
 }

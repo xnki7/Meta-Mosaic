@@ -8,7 +8,7 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
   const [listed, setListed] = useState(false);
   const [price, setPrice] = useState(null);
   const [volume, setVolume] = useState(0);
-  const [creator, setCreator] = useState(null);
+  const [creator, setCreator] = useState("");
 
   useEffect(() => {
     getHistory(nft.tokenId.toString());
@@ -85,12 +85,31 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
               "..." +
               nft.seller.toString().slice(38, 42)}
           </p>
-          <p className="description">{nft.metadata.description}</p>
-          <p className="volume">
-            Volume: {volume.toString() / 1000000000000000000} MATIC
-          </p>
-          <p className="creator">Creator: {creator}</p>
-          <div className="relistItems">
+          <hr />
+          {/* <p className="line1">
+            Volume: {volume.toString() / 1000000000000000000} MATIC | Creator: {creator.slice(0, 6) +
+              "..." +creator.slice(38, 42)}
+          </p> */}
+          <div className="column">
+            <div className="column1">
+            <p className="c1Content">
+              Volume: {volume.toString() / 1000000000000000000} MATIC
+            </p>
+            <p className="c1Content">
+              Creator: {creator.slice(0, 6) +
+              "..." +creator.slice(38, 42)}
+            </p>
+          </div>
+          <div className="column2">
+            <p className="c2Content">
+              Token Standars: ERC-721
+            </p>
+            <p className="c2Content">
+              Token ID: {nft.tokenId.toString()}
+            </p>
+          </div>
+          </div>
+          <div className="buyOrSell relistItems">
             {!isOwner ? (
               <p className="price">
                 Price: {nft.price.toString() / 1000000000000000000} MATIC
@@ -141,6 +160,8 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
               </button>
             )}
           </div>
+          <hr />
+          <p className="description">{nft.metadata.description}</p>
         </div>
       </div>
       <div className="lowerContent">

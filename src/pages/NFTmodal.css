@@ -52,7 +52,46 @@
   margin-bottom: 0;
 }
 
-.NFTmodal .upperContent .right .volume {
+.NFTmodal .upperContent .right .column{
+  display: flex;
+  flex-direction: row;
+}
+
+.NFTmodal .upperContent .right .column .column1{
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 1vh;
+}
+
+.NFTmodal .upperContent .right .column .column2 {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 1vh;  
+  margin-left: 6vh;
+}
+
+.NFTmodal .upperContent .right .column .column2 .c2Content {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 16px;
+  color: #CECECE;
+  margin: 0px;
+  margin-bottom: 1.5vh;
+}
+
+.NFTmodal .upperContent .right .column .column1 .c1Content {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 16px;
+  color: #CECECE;
+  margin: 0px;
+  margin-bottom: 1.5vh;
+}
+
+
+.NFTmodal .upperContent .right .price {
   font-weight: 400;
   font-size: 25px;
   line-height: 30px;
@@ -60,12 +99,18 @@
   margin-top: 0.5vh;
   margin-bottom: 2vh;
 }
+
+.NFTmodal .upperContent .right .buyOrSell{
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
 .NFTmodal .upperContent .right .address{
   font-weight: 200;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 18px;
   color: #CECECE; 
-  margin-top: 0.5vh;
+  margin-top: 0vh;
   margin-bottom: 2vh;
 }
 
@@ -75,7 +120,7 @@
   line-height: 20px;
   display: flex;
   align-items: center;
-  margin-top: 1vh;
+  margin-top: 2vh;
   margin-bottom: 2vh;
   color: #CECECE;
 }
@@ -87,6 +132,7 @@ th,td {
   align-items: center;
   color: #CECECE;
 }
+
 table{
   width: 100%;
 }
