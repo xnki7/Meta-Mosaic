@@ -34,11 +34,19 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
   };
 
   const Relist = async () => {
-    const tx = await contract.reListToken(
-      nft.tokenId.toString(),
-      ethers.utils.parseEther(price)
-    );
-    await tx.wait();
+    try {
+      let listingPrice = await contract.getListPrice();
+      listingPrice = listingPrice.toString();
+      const tx = await contract.reListToken(
+        nft.tokenId.toString(),
+        ethers.utils.parseEther(price),
+        { gasLimit: 900000, value: listingPrice }
+      );
+      await tx.wait();
+      window.location.reload();
+    } catch (error) {
+      console.error("Error relisting token:", error);
+    }
   };
 
   const IsOwner = async (tokenId) => {
@@ -59,6 +67,7 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
         gasLimit: 900000,
       });
       await tx.wait();
+      window.location.reload();
     } catch (error) {
       console.error("Error executing sale:", error);
     }
@@ -86,28 +95,20 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
               nft.seller.toString().slice(38, 42)}
           </p>
           <hr />
-          {/* <p className="line1">
-            Volume: {volume.toString() / 1000000000000000000} MATIC | Creator: {creator.slice(0, 6) +
-              "..." +creator.slice(38, 42)}
-          </p> */}
+
           <div className="column">
             <div className="column1">
-            <p className="c1Content">
-              Volume: {volume.toString() / 1000000000000000000} MATIC
-            </p>
-            <p className="c1Content">
-              Creator: {creator.slice(0, 6) +
-              "..." +creator.slice(38, 42)}
-            </p>
-          </div>
-          <div className="column2">
-            <p className="c2Content">
-              Token Standars: ERC-721
-            </p>
-            <p className="c2Content">
-              Token ID: {nft.tokenId.toString()}
-            </p>
-          </div>
+              <p className="c1Content">
+                Volume: {volume.toString() / 1000000000000000000} MATIC
+              </p>
+              <p className="c1Content">
+                Creator: {creator.slice(0, 6) + "..." + creator.slice(38, 42)}
+              </p>
+            </div>
+            <div className="column2">
+              <p className="c2Content">Token Standars: ERC-721</p>
+              <p className="c2Content">Token ID: {nft.tokenId.toString()}</p>
+            </div>
           </div>
           <div className="buyOrSell relistItems">
             {!isOwner ? (
@@ -122,7 +123,7 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
                 <div className="relistItems">
                   <input
                     className="Price-input"
-                    type="text"
+                    type="number"
                     name=""
                     id=""
                     placeholder="Enter price (in MATIC)"
@@ -142,7 +143,7 @@ function NFTmodal({ nft, contract, setSelectedNFT }) {
                 <div className="relistItems">
                   <input
                     className="Price-input"
-                    type="text"
+                    type="number"
                     name=""
                     id=""
                     placeholder="Enter price (in MATIC)"
