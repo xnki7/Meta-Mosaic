@@ -17,6 +17,7 @@ function App() {
   
   useEffect(() => {
     loadBcData();
+    setupAccountChangeHandler();
   }, []);
 
   const networks = {
@@ -48,6 +49,10 @@ function App() {
         signer
       );
       setContract(contractInstance);
+      const address = await signer.getAddress();
+      console.log("Metamask Connected to " + address);
+      setAccount(address);
+      setIsConnected(true);
     }
   }
 
@@ -61,13 +66,28 @@ function App() {
             params: [networks.polygon],
           });
         }
-        const address = await signer.getAddress();
-        console.log("Metamask Connected to " + address);
-        setAccount(address);
-        setIsConnected(true);
       } catch (err) {
         console.log(err);
       }
+    }
+  }
+
+  function handleAccountChange(newAccounts) {
+    if (newAccounts.length > 0) {
+      const address = newAccounts[0];
+      console.log("Metamask Connected to " + address);
+      setAccount(address);
+      setIsConnected(true);
+    } else {
+      console.log("Metamask Disconnected");
+      setAccount(null);
+      setIsConnected(false);
+    }
+  }
+
+  function setupAccountChangeHandler() {
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", handleAccountChange);
     }
   }
 
@@ -86,9 +106,9 @@ function App() {
           element={<UploadNFTForm contract={contract} />}
         />
       </Routes>
-
     </div>
   );
 }
 
 export default App;
+

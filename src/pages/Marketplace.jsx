@@ -13,7 +13,7 @@ function Marketplace({ contract, isConnected }) {
     if (contract) {
       getAllNFTs();
     }
-  }, [contract]);
+  }, [contract, isConnected]);
 
   const getAllNFTs = async () => {
     setIsLoading(true);

@@ -102,7 +102,7 @@ function MyNFTs({ contract, isConnected }) {
             )}
           </>
         ) : (
-          <p className="noNft">You do not have any nft. Buy now for Marketplace or mint your own.</p>
+          <p className="noNft">You do not have any NFT. Buy now from Marketplace or mint your own.</p>
         )}
       </div>
       <div>
