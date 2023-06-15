@@ -5,12 +5,6 @@
   min-height: 100vh;
 }
 
-.Marketplace .NFTitems .title{
-  display: flex;
-  justify-content: center;
-  margin-top: 4vh;
-}
-
 .Marketplace .trending{
   color: #cecece;
   margin-left: 1.5vh;
@@ -20,13 +14,18 @@
   font-weight: 490;
 }
 
-.Marketplace .NFTitems .title .heading{
+.Marketplace .NFTitems .pageTitle{
+  display: flex;
+    justify-content: center;
+}
+
+.Marketplace .NFTitems .pageTitle .heading{
   text-align: center;
   width: 80%;
   font-size: 5vh;
   font-weight: 350px;
   color: #cecece;
-  margin-top: 0px;
+  margin-top: 4vh;
 }
 
 .Marketplace .NFTitems .connectWalletMsg{

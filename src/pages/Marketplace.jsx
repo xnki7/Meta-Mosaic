@@ -104,7 +104,7 @@ function Marketplace({ contract, isConnected }) {
             </>
           ) : (
             <>
-          <div className="title">
+          <div className="pageTitle">
             <p className="heading">
               "Step into the captivating realm of Meta Mosaic, where a kaleidoscope
               of breathtaking NFTs awaits to mesmerize your senses."
