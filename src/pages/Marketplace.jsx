@@ -61,7 +61,7 @@ function Marketplace({ contract, isConnected }) {
     <>
       <div className="Marketplace">
         {(isConnected && !isLoading && nfts.length > 0) ?(
-          <p className="trending">Trending NFTs..</p>
+          <p className="trending">Trending NFTs 🔥</p>
         ):(
           null
         )}
