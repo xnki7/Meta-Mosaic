@@ -61,6 +61,9 @@ function MyNFTs({ contract, isConnected }) {
 
   return (
     <div className="MyNFTs">
+      {(isConnected && !isLoading && nfts.length > 0) ?(
+        <p className="MyNft">Your NFTs..</p>
+      ):(null)}
       <div className="NFTitems">
         {isConnected && nfts.length > 0 ? (
           <>
@@ -99,7 +102,7 @@ function MyNFTs({ contract, isConnected }) {
             )}
           </>
         ) : (
-          <p>Connect your wallet in order to see your NFTs.</p>
+          <p className="noNft">You do not have any nft. Buy now for Marketplace or mint your own.</p>
         )}
       </div>
       <div>

@@ -60,10 +60,11 @@ function Marketplace({ contract, isConnected }) {
   return (
     <>
       <div className="Marketplace">
-        <p className="heading">
-          "Step into the captivating realm of Meta Mosaic, where a kaleidoscope
-          of breathtaking NFTs awaits to mesmerize your senses."
-        </p>
+        {(isConnected && !isLoading && nfts.length > 0) ?(
+          <p className="trending">Trending NFTs..</p>
+        ):(
+          null
+        )}
         <div className="NFTitems">
           {isConnected && nfts.length > 0 ? (
             <>
@@ -102,7 +103,15 @@ function Marketplace({ contract, isConnected }) {
               )}
             </>
           ) : (
-            <p>Connect your wallet in order to see listed NFTs.</p>
+            <>
+          <div className="title">
+            <p className="heading">
+              "Step into the captivating realm of Meta Mosaic, where a kaleidoscope
+              of breathtaking NFTs awaits to mesmerize your senses."
+            </p>
+        </div>
+        <p className="connectWalletMsg">Connect your wallet in order to see listed NFTs.</p>
+            </>
           )}
         </div>
         {selectedNFT && (

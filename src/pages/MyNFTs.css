@@ -1,6 +1,6 @@
 .MyNFTs {
   width: 100%;
-  padding-top: 20vh;
+  padding-top: 15.5vh;
   background-color: #171717;
   min-height: 100vh;
 }
@@ -11,6 +11,24 @@
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
+}
+
+.MyNFTs .MyNft{
+  color: #cecece;
+    margin-left: 1.5vh;
+    margin-bottom: 0vh;
+    margin-top: 1.5vh;
+    font-size: 30px;
+    font-weight: 490;
+}
+
+.noNft{
+  text-align: center;
+    width: 80%;
+    font-size: 5vh;
+    font-weight: 350px;
+    color: #cecece;
+    margin-top: 4vh;
 }
 
 .MyNFTs .overlay {

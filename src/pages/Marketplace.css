@@ -1,8 +1,42 @@
 .Marketplace {
   width: 100%;
-  padding-top: 20vh;
+  padding-top: 15.5vh;
   background-color: #171717;
   min-height: 100vh;
+}
+
+.Marketplace .NFTitems .title{
+  display: flex;
+  justify-content: center;
+  margin-top: 4vh;
+}
+
+.Marketplace .trending{
+  color: #cecece;
+  margin-left: 1.5vh;
+  margin-bottom: 0vh;
+  margin-top: 1.5vh;
+  font-size: 30px;
+  font-weight: 490;
+}
+
+.Marketplace .NFTitems .title .heading{
+  text-align: center;
+  width: 80%;
+  font-size: 5vh;
+  font-weight: 350px;
+  color: #cecece;
+  margin-top: 0px;
+}
+
+.Marketplace .NFTitems .connectWalletMsg{
+  text-align: center;
+  padding: 1.5vh 2.5vh 1.5vh 2.5vh ;
+  font-size: 22px;
+  font-weight: 400px;
+  color: #a53ff9;
+  border: solid #a53ff9 2px;
+  border-radius: 9px;
 }
 
 .Marketplace .NFTitems {
