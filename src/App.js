@@ -78,7 +78,6 @@ function App() {
       console.log("Metamask Connected to " + address);
       setAccount(address);
       setIsConnected(true);
-      window.location.reload();
     } else {
       console.log("Metamask Disconnected");
       setAccount(null);
