@@ -30,9 +30,9 @@ const UploadNFTForm = ({ contract }) => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            pinata_api_key: "e0b1eac67c09d2b0e44b",
+            pinata_api_key: "8f66ef808e1b48daa5eb",
             pinata_secret_api_key:
-              "f26c855b8a4b802c56abc8afc6b9abbc5c6a29ce6352a28606248e514c5d4189",
+              "d8b0e1b3e229c52031df11d19542cf202a153e52e995e48d548f10886c6a9813",
           },
         }
       );
@@ -48,9 +48,9 @@ const UploadNFTForm = ({ contract }) => {
         nftData,
         {
           headers: {
-            pinata_api_key: "e0b1eac67c09d2b0e44b",
+            pinata_api_key: "8f66ef808e1b48daa5eb",
             pinata_secret_api_key:
-              "f26c855b8a4b802c56abc8afc6b9abbc5c6a29ce6352a28606248e514c5d4189",
+              "d8b0e1b3e229c52031df11d19542cf202a153e52e995e48d548f10886c6a9813",
           },
         }
       );

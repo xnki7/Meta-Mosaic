@@ -14,9 +14,10 @@ function App() {
   const [signer, setSigner] = useState(null);
   const [contract, setContract] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
-  
+
   useEffect(() => {
     loadBcData();
+    setupAccountChangeHandler();
   }, []);
 
   const networks = {
@@ -48,6 +49,10 @@ function App() {
         signer
       );
       setContract(contractInstance);
+      const address = await signer.getAddress();
+      console.log("Metamask Connected to " + address);
+      setAccount(address);
+      setIsConnected(true);
     }
   }
 
@@ -60,23 +65,44 @@ function App() {
             method: "wallet_addEthereumChain",
             params: [networks.polygon],
           });
+          window.location.reload();
         }
-        const address = await signer.getAddress();
-        console.log("Metamask Connected to " + address);
-        setAccount(address);
-        setIsConnected(true);
       } catch (err) {
         console.log(err);
       }
     }
   }
 
+  function handleAccountChange(newAccounts) {
+    if (newAccounts.length > 0) {
+      const address = newAccounts[0];
+      console.log("Metamask Connected to " + address);
+      setAccount(address);
+      setIsConnected(true);
+    } else {
+      console.log("Metamask Disconnected");
+      setAccount(null);
+      setIsConnected(false);
+    }
+  }
+
+  function setupAccountChangeHandler() {
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", handleAccountChange);
+    }
+  }
+
   return (
     <div className="App">
       <Navbar connectWallet={connectWallet} account={account} />
-      
+
       <Routes>
-        <Route path="/" element={<Marketplace contract={contract} isConnected={isConnected}/>} />
+        <Route
+          path="/"
+          element={
+            <Marketplace contract={contract} isConnected={isConnected} />
+          }
+        />
         <Route
           path="/MyNFTs"
           element={<MyNFTs contract={contract} isConnected={isConnected} />}
@@ -86,7 +112,6 @@ function App() {
           element={<UploadNFTForm contract={contract} />}
         />
       </Routes>
-
     </div>
   );
 }
