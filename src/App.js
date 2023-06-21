@@ -49,10 +49,6 @@ function App() {
         signer
       );
       setContract(contractInstance);
-      const address = await signer.getAddress();
-      console.log("Metamask Connected to " + address);
-      setAccount(address);
-      setIsConnected(true);
     }
   }
 
@@ -65,8 +61,11 @@ function App() {
             method: "wallet_addEthereumChain",
             params: [networks.polygon],
           });
-          window.location.reload();
         }
+        const address = await signer.getAddress();
+        console.log("Metamask Connected to " + address);
+        setAccount(address);
+        setIsConnected(true);
       } catch (err) {
         console.log(err);
       }
@@ -100,12 +99,22 @@ function App() {
         <Route
           path="/"
           element={
-            <Marketplace contract={contract} isConnected={isConnected} />
+            <Marketplace
+              contract={contract}
+              isConnected={isConnected}
+              account={account}
+            />
           }
         />
         <Route
           path="/MyNFTs"
-          element={<MyNFTs contract={contract} isConnected={isConnected} />}
+          element={
+            <MyNFTs
+              contract={contract}
+              isConnected={isConnected}
+              account={account}
+            />
+          }
         />
         <Route
           path="/UploadNFTForm"

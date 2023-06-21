@@ -6,7 +6,7 @@ import NFTmodal from "./NFTmodal";
 
 import axios from "axios";
 
-function MyNFTs({ contract, isConnected }) {
+function MyNFTs({ contract, isConnected, account }) {
   const [nfts, setNfts] = useState([]);
   const [selectedNFT, setSelectedNFT] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +15,7 @@ function MyNFTs({ contract, isConnected }) {
     if (contract && isConnected) {
       getMyNFTs();
     }
-  }, [contract, isConnected]);
+  }, [contract, isConnected, account]);
 
   const getMyNFTs = async () => {
     setIsLoading(true);
