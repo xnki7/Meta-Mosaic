@@ -46,7 +46,7 @@ contract NFTMarketplace is ERC721URIStorage {
 
     tokenHistory[] public historyArray;
 
-   
+
     mapping(uint256 => ListedToken) private idToListedToken;
 
     mapping(uint256 => tokenHistory) public idToTokenHistory;
@@ -108,7 +108,6 @@ contract NFTMarketplace is ERC721URIStorage {
 
 
     function createToken(string memory tokenURI, uint256 price) public payable returns (uint) {
-        
         _tokenIds.increment();
         _itemsListed.increment();
         uint256 newTokenId = _tokenIds.current();
@@ -137,12 +136,12 @@ contract NFTMarketplace is ERC721URIStorage {
             payable(msg.sender),
             price,
             true
-        );
+        );  
 
         _transfer(msg.sender, address(this), tokenId);
         idToTokenHistory[tokenId] = tokenHistory(tokenId, address(this), msg.sender, "Token Created", block.timestamp);
         idToHistoryArray[tokenId].push(idToTokenHistory[tokenId]);
-       
+
         emit TokenListedSuccess(
             tokenId,
             address(this),
@@ -152,14 +151,14 @@ contract NFTMarketplace is ERC721URIStorage {
         );
     }
     
- 
+
     function getAllNFTs() public view returns (ListedToken[] memory) {
         uint nftCount2 = _tokenIds.current();
         uint nftCount = _itemsListed.current();
         ListedToken[] memory tokens = new ListedToken[](nftCount);
         uint currentIndex = 0;
         uint currentId;
-       
+
         for(uint i=0;i<nftCount2;i++)
         {
             if(idToListedToken[currentId+1].currentlyListed == true){
@@ -176,7 +175,6 @@ contract NFTMarketplace is ERC721URIStorage {
         return tokens;
     }
     
-    
     function getMyNFTs() public view returns (ListedToken[] memory) {
         uint totalItemCount = _tokenIds.current();
         uint itemCount = 0;
@@ -189,7 +187,6 @@ contract NFTMarketplace is ERC721URIStorage {
                 itemCount += 1;
             }
         }
-
         
         ListedToken[] memory items = new ListedToken[](itemCount);
         for(uint i=0; i < totalItemCount; i++) {
