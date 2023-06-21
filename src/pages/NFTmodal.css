@@ -209,17 +209,14 @@ input.Price-input {
   width: 11px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
 
   background-color: #181717;
-  border: 0.5px solid #181717;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  border: 2px solid transparent;
+  border: 2.4px solid transparent;
   background-clip: content-box;
-  background-color: #585858;
+  background-color: #464646;
 }
