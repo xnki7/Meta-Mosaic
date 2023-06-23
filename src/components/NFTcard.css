@@ -6,8 +6,8 @@
   padding: 0.75vh;
   margin-top: 2.5vh;
   margin-bottom: 2.5vh;
-  box-shadow: 2px 2px 25px 3px rgba(206, 206, 206, 0.15),
-    -2px -2px 25px 3px rgba(206, 206, 206, 0.15);
+  box-shadow: 2px 2px 25px 2px rgba(206, 206, 206, 0.11),
+    -2px -2px 25px 2px rgba(206, 206, 206, 0.11);
 }
 
 .NFTcard .image {
