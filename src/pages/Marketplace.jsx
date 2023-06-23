@@ -4,7 +4,7 @@ import "./Marketplace.css";
 import NFTmodal from "./NFTmodal";
 import axios from "axios";
 
-function Marketplace({ contract, isConnected }) {
+function Marketplace({ contract, isConnected, account }) {
   const [nfts, setNfts] = useState([]);
   const [selectedNFT, setSelectedNFT] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +13,7 @@ function Marketplace({ contract, isConnected }) {
     if (contract) {
       getAllNFTs();
     }
-  }, [contract, isConnected]);
+  }, [contract, isConnected, account]);
 
   const getAllNFTs = async () => {
     setIsLoading(true);
@@ -60,11 +60,9 @@ function Marketplace({ contract, isConnected }) {
   return (
     <>
       <div className="Marketplace">
-        {(isConnected && !isLoading && nfts.length > 0) ?(
+        {isConnected && !isLoading && nfts.length > 0 ? (
           <p className="trending">Trending NFTs 🔥</p>
-        ):(
-          null
-        )}
+        ) : null}
         <div className="NFTitems">
           {isConnected && nfts.length > 0 ? (
             <>
@@ -104,13 +102,16 @@ function Marketplace({ contract, isConnected }) {
             </>
           ) : (
             <>
-          <div className="pageTitle">
-            <p className="heading">
-              "Step into the captivating realm of Meta Mosaic, where a kaleidoscope
-              of breathtaking NFTs awaits to mesmerize your senses."
-            </p>
-        </div>
-        <p className="connectWalletMsg">Connect your wallet in order to see listed NFTs.</p>
+              <div className="pageTitle">
+                <p className="heading">
+                  "Step into the captivating realm of Meta Mosaic, where a
+                  kaleidoscope of breathtaking NFTs awaits to mesmerize your
+                  senses."
+                </p>
+              </div>
+              <p className="connectWalletMsg">
+                Connect your wallet in order to see listed NFTs.
+              </p>
             </>
           )}
         </div>
