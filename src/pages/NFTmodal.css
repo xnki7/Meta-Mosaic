@@ -206,7 +206,7 @@ input.Price-input {
 }
 
 ::-webkit-scrollbar {
-  width: 11px;
+  width: 9px;
 }
 
 ::-webkit-scrollbar-track {
@@ -214,8 +214,8 @@ input.Price-input {
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  border: 2.4px solid transparent;
+  border-radius: 50px;
+  border: solid transparent 2px;
   background-clip: content-box;
   background-color: #464646;
 }
